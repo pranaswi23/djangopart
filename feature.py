@@ -1,7 +1,7 @@
 
 # importing modules and packages
 
-import librosa
+import librosa as lr
 import parselmouth
 from parselmouth.praat import call
 # wildmark imports everything from a module
@@ -21,7 +21,7 @@ def measurePitch(voiceID, f0min, f0max, unit):
 
 #calculating MFCCs (frame duration = 1 sec (16000) per frame)
 def measureMFCC(x, sr):
-    mfcc_f= librosa.feature.mfcc(x, sr=sr, n_mfcc = 12, n_fft = 16000, hop_length = 16000, htk = True)
+    mfcc_f= lr.feature.mfcc(x, sr=sr, n_mfcc = 12, n_fft = 16000, hop_length = 16000, dct_type=2, norm='ortho', htk = True)
 
     return mfcc_f
 
@@ -97,7 +97,7 @@ for audio_path in glob.glob("C:\\SPIRE Internship 2020\\Dataset-valid-dev\\uploa
 
 
     #loading file in librosa library
-    x , sr = librosa.load(audio_path, sr = 16000)
+    x , sr = lr.load(audio_path, sr = 16000)
 
     mfccs = measureMFCC(x, sr)
 
